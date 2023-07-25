@@ -1,0 +1,21 @@
+---
+  - name: Apache
+    hosts: localhost
+    tasks:
+      - name: Install apache
+        dnf:
+          name: httpd
+          state: latest
+      - name: start and enable apache
+        systemd:
+          name: httpd
+          state: started
+          enabled: yes
+      - name: custom index.html
+        file:
+          path: /var/www/html/index.html 
+          state: touch
+          owner: apache
+          group: apache
+          mode: 0644
+      
